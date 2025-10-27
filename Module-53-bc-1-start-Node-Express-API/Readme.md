@@ -32,3 +32,15 @@ In REST API, the client sends requests like:
     <li>Yahoo</li>
     <li>Netflix</li>
 </ul>
+
+
+<ul>
+    <h4>Where to use in Node.js</h4>
+    <li><p>Input / output bound Application</p></li>
+    <li><p>Data Streaming Application</p></li>
+    <li><p>Real time Application</p></li>
+    <li><p>JSON APIs based Application</p></li>
+    <li><p>Single Page Application</p></li>
+</ul>
+
+
