@@ -18,3 +18,6 @@ In REST API, the client sends requests like:
         2. POST → to create data
         3. PUT/PATCH → to update data
         4. DELETE → to delete data
+
+
+<h1>1995 to 2009 js was client side language.</>
