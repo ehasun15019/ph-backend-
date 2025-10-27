@@ -13,6 +13,7 @@ Q3. What is REST API?
 
 
 In REST API, the client sends requests like:
+       
         1. GET → to read data
         2. POST → to create data
         3. PUT/PATCH → to update data
