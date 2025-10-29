@@ -31,6 +31,38 @@ app.get('/', (req, res) => {
 async function run() {
     try{
         await client.connect();
+        
+        /* coming from mongoDB docs start */
+        const userDB = client.db('userDB');
+        const userCollection = userDB.collection('users')
+        /* coming from mongoDB docs end */
+
+
+        // add database related api here 
+        app.post("/users", async (req, res) => {
+          // console.log("get the users. hit the post api")
+          const getUser = req.body;
+          console.log('user info', getUser);
+
+          /* mongoDB docs says call your collection with await */
+          const result = await userCollection.insertOne(getUser)
+          res.send(result)
+        })
+
+
+        // this functionality is for read operation
+        app.get("/users", async (req, res) => {
+          const cursor = userCollection.find();
+          const result = await cursor.toArray();
+          res.send(result)
+        })
+
+        // delete operation
+        app.delete('/users/:id', (req, res) => {
+          console.log(req.params);
+          console.log('delete a user from database');       
+        })
+
         await client.db('admin').command({ping: 1});
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     }
