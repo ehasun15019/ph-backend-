@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 const cors = require("cors");
 
 // import from mongodb clusters
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId, } = require("mongodb");
 
 // middleware
 app.use(cors());
@@ -32,6 +32,26 @@ async function run() {
     const productDB = client.db('product_DB');
     const productsCollection = productDB.collection('products')
     /* create collection end */
+
+
+    /* call a post method for sending data in mongoDB */
+    app.post("/products", async (req, res) => {
+      const newProducts = req.body;
+      const result = await productsCollection.insertOne(newProducts);
+      res.send(result)
+    })
+
+
+    /* delete method functionality */
+    app.delete("/products/:id", async (req, res) => {
+      const productID = req.params.id;
+      const query = {
+        _id: new ObjectId(productID)
+      }
+      const result = await productsCollection.deleteOne(query)
+      res.send(result)
+    })
+
 
     await client.db("admin").command({ ping: 1 });
     console.log("Ping success MongoDB");
