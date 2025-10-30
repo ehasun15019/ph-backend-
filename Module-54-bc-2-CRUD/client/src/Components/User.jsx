@@ -44,7 +44,27 @@ const User = ({userPromise}) => {
 
     // delete functionality start
     const handleDeleteUser = (id) => {
-        console.log("delete a user", id)
+        console.log("delete a user", id);
+
+        fetch(`http://localhost:3000/users/${id}`, {
+            method: "DELETE"
+        })
+        .then((res) => {
+            return res.json()
+        })
+        .then((data) => {
+            console.log("after delete", data);
+
+            if(data.deletedCount) {
+                alert("deleted successfully");
+
+                const remainingUsers = user.filter((item) => {
+                    return item._id !== id
+                })
+
+                setUser(remainingUsers)
+            }
+        })
     }
 
   return (
@@ -75,6 +95,10 @@ const User = ({userPromise}) => {
                     )
                 })
             }
+        </div>
+
+        <div className='text-center'>
+            <h3>User: {user.length}</h3>
         </div>
     </div>
   )

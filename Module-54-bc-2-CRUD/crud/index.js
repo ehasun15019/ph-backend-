@@ -3,7 +3,7 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 // come from mongo clusters
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 // cors requirer
 const cors = require('cors');
@@ -47,7 +47,7 @@ async function run() {
           /* mongoDB docs says call your collection with await */
           const result = await userCollection.insertOne(getUser)
           res.send(result)
-        })
+        });
 
 
         // this functionality is for read operation
@@ -55,12 +55,33 @@ async function run() {
           const cursor = userCollection.find();
           const result = await cursor.toArray();
           res.send(result)
-        })
+        });
+
+        // get method special 
+        app.get("/users/:id", async (req, res) => {
+          const id = req.params.id;
+          console.log("need user with id", id);
+
+          const query = {
+            _id: new ObjectId(id)
+          }
+
+          const result = await userCollection.findOne(query);
+          res.send(result);
+        });
+
 
         // delete operation
-        app.delete('/users/:id', (req, res) => {
-          console.log(req.params);
-          console.log('delete a user from database');       
+        app.delete('/users/:id', async (req, res) => {
+          console.log(req.params.id);
+
+          const paramsID = req.params.id;
+          const query = {
+            _id: new ObjectId(paramsID)
+          };
+          const result = await userCollection.deleteOne(query);
+          
+          res.send(result);
         })
 
         await client.db('admin').command({ping: 1});
