@@ -34,6 +34,14 @@ async function run() {
     /* create collection end */
 
 
+    /* call a get method for getting all data */
+    app.get("/products", async (req, res) => {
+      const cursor = productsCollection.find();
+      const result = await cursor.toArray();
+      res.send(result)
+    })
+
+
     /* call a post method for sending data in mongoDB */
     app.post("/products", async (req, res) => {
       const newProducts = req.body;
