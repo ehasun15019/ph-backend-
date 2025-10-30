@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // mongoDB uri
+// const uri = "mongodb+srv://simpleDBUser:CnoErlcaT5W4STuH@ic-cluster.qdhi4wp.mongodb.net/?appName=ic-cluster";
 const uri = "mongodb+srv://simpleDBUser:CnoErlcaT5W4STuH@ic-cluster.qdhi4wp.mongodb.net/?appName=ic-cluster";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version

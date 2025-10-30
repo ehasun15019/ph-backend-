@@ -1,4 +1,5 @@
 import React, { use, useState } from 'react'
+import { Link } from 'react-router';
 
 const User = ({userPromise}) => {
     const initialUser = use(userPromise);
@@ -84,6 +85,9 @@ const User = ({userPromise}) => {
                     return(
                      <div className='flex gap-3 space-y-3' key={item._id}>
                         <p>{item.name} : {item.email}</p>
+
+                        <Link to={`/users/${item._id}`} className='text-blue-600'>Details</Link>
+                        {/* <Link to={`/update/${item._id}`}>Edit</Link> */}
 
                         <button 
                          className='bg-red-600 px-3 py-1 rounded-full cursor-pointer'
